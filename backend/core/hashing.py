@@ -1,6 +1,6 @@
-from passlib.context import CryptoContext
+from passlib.context import CryptContext
 
-pwt_context = CryptoContext(schemes=["bcrypt"], deprecated="auto")
+pwt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class Hasher():
     @staticmethod
