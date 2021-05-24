@@ -5,6 +5,7 @@ from datetime import date, datetime
 class JobBase(BaseModel):
     title: Optional[str] = None
     company: Optional[str] = None
+    company_url: Optional[str] = None
     location: Optional[str] = None
     description: Optional[str] = "Remote"
     date_posted: Optional[str] = datetime.now().date()
