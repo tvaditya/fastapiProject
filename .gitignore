@@ -2,3 +2,9 @@ __pycache__
 .env
 .env_test
 env
+
+test_db.db
+db_testboard.db
+.pytest_cache
+htmlcov
+.coverage
