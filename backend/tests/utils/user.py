@@ -31,7 +31,7 @@ def user_authentication_headers(client: TestClient, email: str, password: str): 
     return headers
 
 
-def authentication_token_from_email(client: TestClient, email: str, db: Session):  # new
+def authentication_token_from_email(client: TestClient, email: str, db: Session):
     """
     Return a valid token for the user with given email.
     If the user doesn't exist it is created first.
