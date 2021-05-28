@@ -10,3 +10,4 @@ requests
 pytest_cov==2.11.1
 python-jose
 python-multipart
+jinja2
