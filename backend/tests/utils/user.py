@@ -9,7 +9,7 @@ from db.repository.users import create_new_user
 from db.repository.login import get_user
 from fastapi.testclient import TestClient
 from schemas.users import UserCreate
-from sqlalchemy.orm import Session
+
 
 def random_lower_string() -> str:
     return "".join(random.choices(string.ascii_lowercase, k=32))
