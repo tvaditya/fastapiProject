@@ -76,8 +76,8 @@ def client(
     with TestClient(app) as client:
         yield client
 
-    @pytest.fixture(scope="module")  # new function
-    def normal_user_token_headers(client: TestClient, db_session: Session):
-        return authentication_token_from_email(
-            client=client, email=settings.TEST_USER_EMAIL, db=db_session
-        )
+@pytest.fixture(scope="function")  # new function
+def normal_user_token_headers(client: TestClient, db_session: Session):
+    return authentication_token_from_email(
+        client=client, email=settings.TEST_USER_EMAIL, db=db_session
+    )
