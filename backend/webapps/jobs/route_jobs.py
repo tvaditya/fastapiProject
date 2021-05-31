@@ -10,6 +10,7 @@ from db.repository.jobs import retreive_job
 from schemas.jobs import JobCreate
 from fastapi import responses, status
 from fastapi.security.utils import get_authorization_scheme_param
+from typing import Optional
 
 from db.models.users import User
 from db.repository.jobs import create_new_job
@@ -59,3 +60,14 @@ async def create_job(request: Request, db: Session = Depends(get_db)):
             )
             return templates.TemplateResponse("jobs/create_job.html", form.__dict__)
     return templates.TemplateResponse("jobs/create_job.html", form.__dict__)
+
+
+@router.get("/delete-job/")
+def show_jobs_to_delete(request: Request, db: Session = Depends(get_db)):
+    jobs = list_jobs(db=db)
+    return templates.TemplateResponse(
+        "jobs/show_jobs_to_delete.html",
+        {"request": request, "jobs": jobs}
+    )
+
+
