@@ -7,17 +7,23 @@
     <div class="container">
         <h1 class="display-4 text-danger">Sign Up</h1>
 
+        <div class="text-danger font-weight-bold">
+            {% for error in errors %}
+                <li>{{error}}</li>
+            {% endfor %}
+        </div>
+
         <form method="POST">
             <div class="mb-3">
                 <label>username</label>
                 <input type="text" required class="form-control" name="username" value="{{username}}" placeholder="username"></input>
             </div>
             <div class="mb-3">
-                <label>username</label>
+                <label>email</label>
                 <input type="email" required class="form-control" name="email" value="{{email}}" placeholder="email"></input>
             </div>
             <div class="mb-3">
-                <label>pasasword</label>
+                <label>password</label>
                 <input type="password" required class="form-control" name="password" value="{{password}}" placeholder="password"></input>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
