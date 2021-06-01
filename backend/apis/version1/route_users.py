@@ -33,10 +33,10 @@ def delete_user(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"User with id {id} does not exist",
         )
-    # print(job.owner_id, current_user.id, current_user.is_superuser)
+
     if user.id == current_user.is_superuser:
         delete_user_by_id(id=id, db=db)
-        return {"detail": "Job successfully deleted."}
+        return {"detail": "User successfully deleted."}
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not permitted!!!!"
     )

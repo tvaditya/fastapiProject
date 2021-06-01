@@ -34,7 +34,7 @@ async def register(request: Request, db: Session=Depends(get_db)):
     return templates.TemplateResponse("users/register.html", form.__dict__)
 
 @router.get("/delete-user/")
-def show_jobs_to_delete(request: Request, db: Session = Depends(get_db)):
+def show_users_to_delete(request: Request, db: Session = Depends(get_db)):
     users = list_users(db=db)
     return templates.TemplateResponse(
         "users/show_users_to_delete.html",
