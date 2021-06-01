@@ -14,3 +14,16 @@ def create_new_user(user: UserCreate, db:Session):
     db.commit()
     db.refresh(user)
     return user
+
+def list_users(db: Session):
+    users = db.query(User).filter(User.is_active==True).all()
+    return users
+
+def delete_user_by_id(id: int, db: Session, owner_id):
+    existing_user = db.query(User).filter(User.id == id)
+    if not existing_user.first():
+        return 0
+    existing_user.delete(synchronize_session=False)
+    db.commit()
+    return 1
+
