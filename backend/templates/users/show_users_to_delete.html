@@ -1,0 +1,54 @@
+{% extends "shared/base.html" %}
+
+
+{% block title %}
+  <title>Delete Users</title>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-5 text-center text-danger mb-3">Delete Users</h1>
+    </div>
+    <div id="result" class="text-danger text-bold lead"></div>
+  </div>
+
+  <div class="row">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Sr. No.</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">IsActive</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{user.username}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.is_active}}</td>
+                <td><button class="btn btn-danger btn-sm" onclick="delete_user({{user.id}})">Delete</button></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+    function delete_user(id){
+        fetch('/user/delete/'+id,{
+            method:'DELETE',})
+        .then(response => response.json())
+        .then(document.getElementById('result').innerHTML = "Refreshing...")
+        .then(data => document.getElementById('result').innerHTML = data.detail);
+    }
+</script>
+{% endblock %}

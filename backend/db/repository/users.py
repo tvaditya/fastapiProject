@@ -19,7 +19,11 @@ def list_users(db: Session):
     users = db.query(User).filter(User.is_active==True).all()
     return users
 
-def delete_user_by_id(id: int, db: Session, owner_id):
+def retreive_user(id:int,db:Session):
+    user = db.query(User).filter(User.id==id).first()
+    return user
+
+def delete_user_by_id(id: int, db: Session):
     existing_user = db.query(User).filter(User.id == id)
     if not existing_user.first():
         return 0

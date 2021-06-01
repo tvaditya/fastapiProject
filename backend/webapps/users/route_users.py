@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.templating import Jinja2Templates
 from fastapi import Request, responses, status, Depends
-from db.repository.users import create_new_user
+from db.repository.users import create_new_user, list_users
 from db.session import get_db
 from schemas.users import UserCreate
 from sqlalchemy.orm import Session
@@ -32,3 +32,11 @@ async def register(request: Request, db: Session=Depends(get_db)):
         except IntegrityError:
             form.__dict__.get("errors").append("Duplicate username or email")
     return templates.TemplateResponse("users/register.html", form.__dict__)
+
+@router.get("/delete-user/")
+def show_jobs_to_delete(request: Request, db: Session = Depends(get_db)):
+    users = list_users(db=db)
+    return templates.TemplateResponse(
+        "users/show_users_to_delete.html",
+        {"request": request, "users": users}
+    )
