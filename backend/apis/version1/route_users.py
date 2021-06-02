@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from sqlalchemy.orm import Session
 from schemas.users import UserCreate, ShowUser
 from db.models.users import User
 from db.session import get_db
@@ -17,7 +16,7 @@ def create_user(user: UserCreate, db: Session=Depends(get_db)):
     return user
 
 @router.get("/all", response_model=List[ShowUser])
-def retreive_all_jobs(db:Session = Depends(get_db)):
+def retreive_all_users(db:Session = Depends(get_db)):
     users = list_users(db=db)
     return users
 
@@ -33,10 +32,11 @@ def delete_user(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"User with id {id} does not exist",
         )
-
-    if user.id == current_user.is_superuser:
+    print(current_user.id, current_user.username)
+    if current_user.is_superuser:
+        print(f"User {current_user.username}, {current_user.id} is a superuser")
         delete_user_by_id(id=id, db=db)
         return {"detail": "User successfully deleted."}
     raise HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not permitted!!!!"
+        status_code=status.HTTP_401_UNAUTHORIZED, detail="You need to be an authorized user!!"
     )
